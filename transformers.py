@@ -1,5 +1,5 @@
-from pathlib import Path
 import json
+
 import torch
 from botorch.models.transforms.input import AffineInputTransform, InputTransform
 
@@ -11,8 +11,6 @@ with open("configs/model_info.json", "r") as f:
     model_info = json.load(f)
 with open("configs/normalization.json", "r") as f:
     norm_data = json.load(f)
-with open("configs/calibration.json", "r") as f:
-    calibration = json.load(f)
 
 
 class PVtoSimFactor(InputTransform, torch.nn.Module):
@@ -87,7 +85,13 @@ def get_pv_to_sim_transformers(features, outputs):
     return input_pv_to_sim, output_pv_to_sim
 
 
-def get_calibration_transformers():
+def get_calibration_transformers(use_calibration: bool):
+    if use_calibration:
+        with open("configs/calibration.json", "r") as f:
+            calibration = json.load(f)
+    else:
+        with open("configs/no_calibration.json", "r") as f:
+            calibration = json.load(f)
     input_calibration = Calibration(
         scales=torch.tensor(calibration["x_scale"]),
         offsets=torch.tensor(calibration["x_offset"]),

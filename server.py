@@ -1,3 +1,4 @@
+import argparse
 import json
 from pathlib import Path
 from pprint import pprint
@@ -7,9 +8,10 @@ import torch
 from botorch.models.transforms.input import AffineInputTransform
 from lume_epics.epics_server import Server
 from lume_epics.utils import config_from_yaml
-
 from lume_model.torch import PyTorchModel
 from lume_model.utils import model_from_yaml, variables_from_yaml
+
+from model import DebuggingPyTorchModel
 from transformers import (
     get_calibration_transformers,
     get_pv_to_sim_transformers,
@@ -17,10 +19,18 @@ from transformers import (
     model_info,
     pv_info,
 )
-from model import DebuggingPyTorchModel
+
+parser = argparse.ArgumentParser(description="LCLS Injector Surrogate in EPICS")
+parser.add_argument(
+    "--calibration",
+    action=argparse.BooleanOptionalAction,
+    help="Passing this flag will tell the model to include a calibration parameter. To ignore calibration, use --no-calibration flag",
+)
 
 
 if __name__ == "__main__":
+    args = parser.parse_args()
+    print(args.calibration)
     with open("configs/epics_config.yml", "r") as f:
         epics_config = config_from_yaml(f)
 
@@ -36,7 +46,9 @@ if __name__ == "__main__":
     ]
 
     input_sim_to_nn, output_sim_to_nn = get_sim_to_nn_transformers(output_indices)
-    input_calibration, output_calibration = get_calibration_transformers()
+    input_calibration, output_calibration = get_calibration_transformers(
+        args.calibration
+    )
 
     # build the PyTorchModel and include the known calibration layers
     model_kwargs = {
