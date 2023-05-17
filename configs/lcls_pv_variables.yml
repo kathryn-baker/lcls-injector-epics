@@ -7,12 +7,12 @@ input_variables:
     default: 298.892136
     range: [200.0, 500.0]
     type: scalar
-  Pulse_length:
-    default: 1.8550514181818183
-    range:
-      - 1.8181822778856414
-      - 7.2718604921302035
-    type: scalar
+  # Pulse_length:
+  #   default: 1.8550514181818183
+  #   range:
+  #     - 1.8181822778856414
+  #     - 7.2718604921302035
+  #   type: scalar
   FBCK:BCI0:1:CHRG_S:
     default: 0.25
     range:

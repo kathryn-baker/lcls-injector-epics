@@ -1,7 +1,5 @@
 import argparse
 import json
-from pathlib import Path
-from pprint import pprint
 
 import numpy as np
 import torch
@@ -10,14 +8,11 @@ from lume_epics.utils import config_from_yaml
 from lume_model.torch import PyTorchModel
 from lume_model.utils import variables_from_yaml
 
+from configs.ref_config import ref_point  # NOTE these are in sim vals
 from model import PyTorchModelCompoundPV
-from transformers import (
-    get_calibration_transformers,
-    get_pv_to_sim_transformers,
-    get_sim_to_nn_transformers,
-    model_info,
-    pv_info,
-)
+from transformers import (get_calibration_transformers,
+                          get_pv_to_sim_transformers,
+                          get_sim_to_nn_transformers, model_info, pv_info)
 
 parser = argparse.ArgumentParser(description="LCLS Injector Surrogate in EPICS")
 parser.add_argument(
@@ -29,7 +24,7 @@ parser.add_argument(
 
 if __name__ == "__main__":
     args = parser.parse_args()
-    print(args.calibration)
+
     with open("configs/epics_config.yml", "r") as f:
         epics_config = config_from_yaml(f)
 
@@ -55,6 +50,10 @@ if __name__ == "__main__":
         args.calibration
     )
 
+    default_vals = input_pv_to_sim.untransform(
+        torch.tensor(ref_point[0], dtype=torch.double, requires_grad=True)
+    )
+
     # build the PyTorchModel and include the known calibration layers
     model_kwargs = {
         "model_file": "torch_model.pt",
@@ -65,6 +64,7 @@ if __name__ == "__main__":
         "feature_order": features,
         "output_order": outputs,
         "output_format": {"type": "variable"},
+        "default_vals": default_vals,
     }
     server = Server(
         PyTorchModelCompoundPV, epics_config=epics_config, model_kwargs=model_kwargs

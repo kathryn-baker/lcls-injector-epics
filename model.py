@@ -18,6 +18,7 @@ class PyTorchModelCompoundPV(PyTorchModel):
         output_format,
         feature_order,
         output_order,
+        default_vals: torch.Tensor,
     ):
         super().__init__(
             model_file,
@@ -29,24 +30,11 @@ class PyTorchModelCompoundPV(PyTorchModel):
             feature_order,
             output_order,
         )
-        default_vals = []
-        for input_name in self.features:
-            if input_name in self.input_variables.keys():
-                default_vals.append(self.input_variables[input_name].default)
-            else:
-                xrms = self.input_variables["CAMR:IN20:186:XRMS"]
-                yrms = self.input_variables["CAMR:IN20:186:YRMS"]
-                default_vals.append(
-                    r_dist(torch.tensor(xrms.default), torch.tensor(yrms.default))
-                )
-        self.default_values = torch.tensor(
-            default_vals, dtype=torch.double, requires_grad=True
-        )
-
-    def evaluate(self, input_dict):
-        return super().evaluate(input_dict)
+        self.default_values = default_vals
 
     def _prepare_inputs(self, input_variables):
+        """override this function to modify the dictionary for any compound PVs/features
+        that we don't measure directly from the machine"""
         model_vals = super()._prepare_inputs(input_variables)
 
         xrms = model_vals.pop("CAMR:IN20:186:XRMS")
