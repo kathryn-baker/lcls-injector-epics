@@ -1,7 +1,11 @@
 input_variables:
-  CAMR:IN20:186:R_DIST:
-    default: 423.867825
-    range: [210.21247820852546, 499.9996083265339]
+  CAMR:IN20:186:XRMS:
+    default: 322.258611
+    range: [200.0, 500.0]
+    type: scalar
+  CAMR:IN20:186:YRMS:
+    default: 298.892136
+    range: [200.0, 500.0]
     type: scalar
   Pulse_length:
     default: 1.8550514181818183
