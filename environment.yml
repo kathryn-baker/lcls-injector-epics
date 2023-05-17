@@ -1,0 +1,11 @@
+name: injector-epics
+channels:
+  - conda-forge
+dependencies:
+  - python=3.9
+  - botorch
+  - bokeh<3.0
+  - lume-model=1.5
+  - pip
+  - pip:
+      - "git+https://github.com/kathryn-baker/lume-epics.git@demo-fixes"

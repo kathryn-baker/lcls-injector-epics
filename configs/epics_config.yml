@@ -1,0 +1,109 @@
+input_variables:
+  CAMR:IN20:186:XRMS:
+    protocol: ca
+    pvname: CAMR:IN20:186:XRMS
+    units: mm
+    serve: True
+  CAMR:IN20:186:YRMS:
+    protocol: ca
+    pvname: CAMR:IN20:186:YRMS
+    units: mm
+    serve: True
+  Pulse_length:
+    protocol: ca
+    pvname: Pulse_length
+    units: ps
+    serve: True
+  FBCK:BCI0:1:CHRG_S:
+    protocol: ca
+    pvname: FBCK:BCI0:1:CHRG_S
+    units: pC
+    serve: True
+  SOLN:IN20:121:BACT:
+    protocol: ca
+    pvname: SOLN:IN20:121:BACT
+    units: kG.m
+    serve: True
+  QUAD:IN20:121:BACT:
+    protocol: ca
+    pvname: QUAD:IN20:121:BACT
+    units: kG
+    serve: True
+  QUAD:IN20:122:BACT:
+    protocol: ca
+    pvname: QUAD:IN20:122:BACT
+    units: kG
+    serve: True
+  ACCL:IN20:300:L0A_ADES:
+    protocol: ca
+    pvname: ACCL:IN20:300:L0A_ADES
+    units: MV
+    serve: True
+  ACCL:IN20:300:L0A_PDES:
+    protocol: ca
+    pvname: ACCL:IN20:300:L0A_PDES
+    units: deg
+    serve: True
+  ACCL:IN20:400:L0B_ADES:
+    protocol: ca
+    pvname: ACCL:IN20:400:L0B_ADES
+    units: MV
+    serve: True
+  ACCL:IN20:400:L0B_PDES:
+    protocol: ca
+    pvname: ACCL:IN20:400:L0B_PDES
+    units: deg
+    serve: True
+  QUAD:IN20:361:BACT:
+    protocol: ca
+    pvname: QUAD:IN20:361:BACT
+    units: kG
+    serve: True
+  QUAD:IN20:371:BACT:
+    protocol: ca
+    pvname: QUAD:IN20:371:BACT
+    units: kG
+    serve: True
+  QUAD:IN20:425:BACT:
+    protocol: ca
+    pvname: QUAD:IN20:425:BACT
+    units: kG
+    serve: True
+  QUAD:IN20:441:BACT:
+    protocol: ca
+    pvname: QUAD:IN20:441:BACT
+    units: kG
+    serve: True
+  QUAD:IN20:511:BACT:
+    protocol: ca
+    pvname: QUAD:IN20:511:BACT
+    units: kG
+    serve: True
+  QUAD:IN20:525:BACT:
+    protocol: ca
+    pvname: QUAD:IN20:525:BACT
+    units: kG
+    serve: True
+output_variables:
+  OTRS:IN20:571:XRMS:
+    protocol: ca
+    pvname: OTRS:IN20:571:XRMS
+    units: µm
+    serve: True
+  OTRS:IN20:571:YRMS:
+    protocol: ca
+    pvname: OTRS:IN20:571:YRMS
+    units: µm
+    serve: True
+  sigma_z:
+    protocol: ca
+    pvname: SIGMA_Z
+    serve: True
+  norm_emit_x:
+    protocol: ca
+    pvname: NORM_EMIT_X
+    serve: True
+  norm_emit_y:
+    protocol: ca
+    pvname: NORM_EMIT_Y
+    serve: True
